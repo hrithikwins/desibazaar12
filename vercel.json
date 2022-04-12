@@ -1,0 +1,10 @@
+{
+  "env": {
+      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://desicover.herokuapp.com"
+  },
+  "build": {
+    "env": {
+        "NEXT_PUBLIC_REST_API_ENDPOINT": "https://desicover.herokuapp.com"
+    }
+  }
+}
