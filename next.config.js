@@ -8,7 +8,7 @@ module.exports = withPWA({
         runtimeCaching,
     },
     images: {
-        domains: ["desicovers.co.in"],
+        domains: ["desicovers.co.in", "s7g3.scene7.com"],
     },
     i18n,
     exportPathMap: async function (

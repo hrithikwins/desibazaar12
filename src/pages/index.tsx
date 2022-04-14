@@ -28,6 +28,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect } from "react";
 import { ROUTES } from "@utils/routes";
 import { useUI } from "@contexts/ui.context";
+import CategoryBlock from "@containers/category-block";
 
 export default function Home() {
     const { openModal, setModalView } = useUI();
@@ -43,7 +44,7 @@ export default function Home() {
             <Container>
                 <FlashSaleBlock />
                 <BannerCarouselBlock />
-                {/* <CategoryBlock sectionHeading="text-shop-by-category" /> */}
+                <CategoryBlock sectionHeading="text-shop-by-category" />
                 <Divider />
                 <BestSellerProductFeed />
                 <BannerCard
