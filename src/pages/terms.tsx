@@ -7,6 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 
+// adding some comments here
 function makeTitleToDOMId(title: string) {
 	return title.toLowerCase().split(" ").join("_");
 }
