@@ -7,11 +7,11 @@ export interface CheckoutInputType {
   lastName: string;
   phone: string;
   email: string;
-  address: string;
+  deliveryAddress: string;
   city: string;
-  zipCode: string;
+  postcode: string;
   save: boolean;
-  note: string;
+  orderNotes: string;
 }
 async function checkout(input: CheckoutInputType) {
   // return http.post(API_ENDPOINTS.ChangeEmail, input);

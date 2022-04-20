@@ -113,7 +113,7 @@ const SellWithProgress: React.FC<Props> = ({
 											<div className="h-full flex flex-col justify-between">
 												<div className="mb-5 sm:mb-7 lg:mb-8 2xl:mb-10 3xl:mb-12">
 													<ProductCard
-														product={product.productData}
+														product={product}
 														imgWidth={imgWidth}
 														imgHeight={imgHeight}
 														variant={productVariant}

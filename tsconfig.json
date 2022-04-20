@@ -33,6 +33,6 @@
     "additional.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "src/pages/mobile-cover.tsx"  ],
   "exclude": ["node_modules"]
 }

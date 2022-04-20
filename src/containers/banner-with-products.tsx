@@ -2,10 +2,11 @@ import BannerCard from "@components/common/banner-card";
 import SectionHeader from "@components/common/section-header";
 import ProductCard from "@components/product/product-card";
 import ProductCardListSmallLoader from "@components/ui/loaders/product-card-small-list-loader";
-import { useOnSellingProductsQuery } from "@framework/product/get-all-on-selling-products";
+// import { useOnSellingProductsQuery } from "@framework/product/get-all-on-selling-products";
 import { homeThreeProductsBanner as banner } from "@framework/static/banner";
 import Alert from "@components/ui/alert";
 import { ROUTES } from "@utils/routes";
+import { useFlashSaleProductsQuery } from "@framework/product/get-all-flash-sale-products";
 
 interface ProductsProps {
 	sectionHeading: string;
@@ -20,7 +21,7 @@ const BannerWithProducts: React.FC<ProductsProps> = ({
 	variant = "default",
 	className = "mb-12 md:mb-14 xl:mb-16",
 }) => {
-	const { data, isLoading, error } = useOnSellingProductsQuery({
+	const { data, isLoading, error } = useFlashSaleProductsQuery({
 		limit: 10,
 	});
 

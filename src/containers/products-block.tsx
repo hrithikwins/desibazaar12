@@ -41,7 +41,7 @@ const ProductsBlock: React.FC<ProductsProps> = ({
                         products?.map((product: any) => (
                             <ProductCard
                                 key={`product--key${product._id}`}
-                                product={product.productData}
+                                product={product}
                                 imgWidth={340}
                                 imgHeight={440}
                                 variant="grid"

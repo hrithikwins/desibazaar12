@@ -53,11 +53,11 @@ export const CategoryFilter = () => {
 			<div className="mt-2 flex flex-col space-y-4">
 				{items?.map((item: any) => (
 					<CheckBox
-						key={item.id}
-						label={item.name}
-						name={item.name.toLowerCase()}
-						checked={formState.includes(item.slug)}
-						value={item.slug}
+						key={item._id}
+						label={item.categoryName}
+						name={item.categoryName.toLowerCase()}
+						checked={formState.includes(item._id)}
+						value={item._id}
 						onChange={handleItemClick}
 					/>
 				))}

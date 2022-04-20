@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import { ROUTES } from "@utils/routes";
 import { useUI } from "@contexts/ui.context";
-import Button from "@components/ui/button";
+import PrimaryButton from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useCart } from "@contexts/cart/cart.context";
 import { ProductAttributes } from "@components/product/product-attributes";
@@ -75,100 +75,105 @@ export default function ProductPopup() {
 	}
 
 	return (
-		<div className="rounded-lg bg-white">
-			<div className="flex flex-col lg:flex-row w-full md:w-[650px] lg:w-[960px] mx-auto overflow-hidden">
-				<div className="flex-shrink-0 flex items-center justify-center w-full lg:w-430px max-h-430px lg:max-h-full overflow-hidden bg-gray-300">
-					<img
-						src={
-							image?.original ??
-							"/assets/placeholder/products/product-thumbnail.svg"
-						}
-						alt={name}
-						className="lg:object-cover lg:w-full lg:h-full"
-					/>
-				</div>
+        <div className="rounded-lg bg-white">
+            <div className="flex flex-col lg:flex-row w-full md:w-[650px] lg:w-[960px] mx-auto overflow-hidden">
+                <div className="flex-shrink-0 flex items-center justify-center w-full lg:w-430px max-h-430px lg:max-h-full overflow-hidden bg-gray-300">
+                    <img
+                        src={
+                            image?.original ??
+                            "/assets/placeholder/products/product-thumbnail.svg"
+                        }
+                        alt={name}
+                        className="lg:object-cover lg:w-full lg:h-full"
+                    />
+                </div>
 
-				<div className="flex flex-col p-5 md:p-8 w-full">
-					<div className="pb-5">
-						<div
-							className="mb-2 md:mb-2.5 block -mt-1.5"
-							onClick={navigateToProductPage}
-							role="button"
-						>
-							<h2 className="text-heading text-lg md:text-xl lg:text-2xl font-semibold hover:text-black">
-								{name}
-							</h2>
-						</div>
-						<p className="text-sm leading-6 md:text-body md:leading-7">
-							{description}
-						</p>
+                <div className="flex flex-col p-5 md:p-8 w-full">
+                    <div className="pb-5">
+                        <div
+                            className="mb-2 md:mb-2.5 block -mt-1.5"
+                            onClick={navigateToProductPage}
+                            role="button"
+                        >
+                            <h2 className="text-heading text-lg md:text-xl lg:text-2xl font-semibold hover:text-black">
+                                {name}
+                            </h2>
+                        </div>
+                        <p className="text-sm leading-6 md:text-body md:leading-7">
+                            {description}
+                        </p>
 
-						<div className="flex items-center mt-3">
-							<div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
-								{price}
-							</div>
-							{discount && (
-								<del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
-									{basePrice}
-								</del>
-							)}
-						</div>
-					</div>
+                        <div className="flex items-center mt-3">
+                            <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
+                                {price}
+                            </div>
+                            {discount && (
+                                <del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
+                                    {basePrice}
+                                </del>
+                            )}
+                        </div>
+                    </div>
 
-					{Object.keys(variations).map((variation) => {
-						return (
-							<ProductAttributes
-								key={`popup-attribute-key${variation}`}
-								title={variation}
-								attributes={variations[variation]}
-								active={attributes[variation]}
-								onClick={handleAttribute}
-							/>
-						);
-					})}
+                    {Object.keys(variations).map((variation) => {
+                        return (
+                            <ProductAttributes
+                                key={`popup-attribute-key${variation}`}
+                                title={variation}
+                                attributes={variations[variation]}
+                                active={attributes[variation]}
+                                onClick={handleAttribute}
+                            />
+                        );
+                    })}
 
-					<div className="pt-2 md:pt-4">
-						<div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
-							<Counter
-								quantity={quantity}
-								onIncrement={() => setQuantity((prev) => prev + 1)}
-								onDecrement={() =>
-									setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-								}
-								disableDecrement={quantity === 1}
-							/>
-							<Button
-								onClick={addToCart}
-								variant="flat"
-								className={`w-full h-11 md:h-12 px-1.5 ${
-									!isSelected && "bg-gray-400 hover:bg-gray-400"
-								}`}
-								disabled={!isSelected}
-								loading={addToCartLoader}
-							>
-								{t("text-add-to-cart")}
-							</Button>
-						</div>
+                    <div className="pt-2 md:pt-4">
+                        <div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
+                            <Counter
+                                quantity={quantity}
+                                onIncrement={() =>
+                                    setQuantity((prev) => prev + 1)
+                                }
+                                onDecrement={() =>
+                                    setQuantity((prev) =>
+                                        prev !== 1 ? prev - 1 : 1
+                                    )
+                                }
+                                disableDecrement={quantity === 1}
+                            />
+                            <PrimaryButton
+                                onClick={addToCart}
+                                variant="flat"
+                                className={`w-full h-11 md:h-12 px-1.5 ${
+                                    !isSelected &&
+                                    "bg-gray-400 hover:bg-gray-400"
+                                }`}
+                                disabled={!isSelected}
+                                loading={addToCartLoader}
+                            >
+                                {t("text-add-to-cart")}
+                            </PrimaryButton>
+                        </div>
 
-						{viewCartBtn && (
-							<button
-								onClick={navigateToCartPage}
-								className="w-full mb-4 h-11 md:h-12 rounded bg-gray-100 text-heading focus:outline-none border border-gray-300 transition-colors hover:bg-gray-50 focus:bg-gray-50"
-							>
-								{t("text-view-cart")}
-							</button>
-						)}
+                        {viewCartBtn && (
+                            <button
+                                onClick={navigateToCartPage}
+                                className="w-full mb-4 h-11 md:h-12 rounded bg-gray-100 text-heading focus:outline-none border border-gray-300 transition-colors hover:bg-gray-50 focus:bg-gray-50"
+                            >
+                                {t("text-view-cart")}
+                            </button>
+                        )}
 
-						<Button
-							onClick={navigateToProductPage}
-							variant="flat"
-							className="w-full h-11 md:h-12"
-						>
-							{t("text-view-details")}
-						</Button>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+                        <PrimaryButton
+                            onClick={navigateToProductPage}
+                            variant="flat"
+                            className="w-full h-11 md:h-12"
+                        >
+                            {t("text-view-details")}
+                        </PrimaryButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }

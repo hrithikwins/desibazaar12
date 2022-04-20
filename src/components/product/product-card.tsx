@@ -71,7 +71,7 @@ const ProductCard: FC<ProductProps> = ({
                 )}
             >
                 <Image
-                    src={product?.image.toString() ?? placeholderImage}
+                    src={product?.image?.toString() ?? placeholderImage}
                     width={imgWidth}
                     height={imgHeight}
                     loading={imgLoading}

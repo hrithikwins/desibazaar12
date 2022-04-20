@@ -56,7 +56,6 @@ export default function Home() {
                 />
                 <NewArrivalsProductFeed />
                 <Divider />
-                {/* <BrandBlock sectionHeading="text-top-brands" /> */}
                 <CollectionBlock />
                 <FeatureBlock />
                 <DownloadApps className="bg-linen" />
@@ -67,7 +66,11 @@ export default function Home() {
     );
 }
 
+{
+    /* <BrandBlock sectionHeading="text-top-brands" /> */
+}
 Home.Layout = Layout;
+
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const queryClient = new QueryClient();
 

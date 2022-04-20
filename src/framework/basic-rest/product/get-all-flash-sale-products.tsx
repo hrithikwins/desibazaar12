@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 export const fetchFlashSaleProducts = async ({ queryKey }: any) => {
 	const [_key, _params] = queryKey;
 	const { data } = await http.get(
-        "https://desicover.herokuapp.com/get-all-products?page=3"
+        "https://desicover.herokuapp.com/get-all-products?page=1"
     );
 	return data;
 };

@@ -1,6 +1,6 @@
 // import Image from "next/image";
 import Text from "@components/ui/text";
-import Button from "@components/ui/button";
+import PrimaryButton from "@components/ui/button";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import cn from "classnames";
 import { useTranslation } from "next-i18next";
@@ -44,10 +44,10 @@ const Support: React.FC<Props> = ({ className }) => {
 					height={300}
 				/>
 			</div> */}
-            <Button>
+            <PrimaryButton>
                 {t(`${buttonText}`)}
                 <IoChatbubbleEllipsesOutline className="ms-2 text-lg md:text-xl" />
-            </Button>
+            </PrimaryButton>
         </div>
     );
 };
