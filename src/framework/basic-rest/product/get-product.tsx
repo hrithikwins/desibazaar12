@@ -8,7 +8,7 @@ export const fetchProduct = async (_slug: string) => {
 	return data;
 };
 export const useProductQuery = (slug: string) => {
-	return useQuery<Product, Error>([API_ENDPOINTS.PRODUCT, slug], () =>
-		fetchProduct(slug)
-	);
+	return useQuery<Product, Error>([API_ENDPOINTS, slug], () =>
+        fetchProduct(slug)
+    );
 };

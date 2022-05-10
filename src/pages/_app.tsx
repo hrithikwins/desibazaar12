@@ -25,6 +25,8 @@ import "@styles/swiper-carousel.css";
 import "@styles/custom-plugins.css";
 import "@styles/tailwind.css";
 import { getDirection } from "@utils/get-direction";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "./../styles/mobile-cover.css";
 
 function handleExitComplete() {
 	if (typeof window !== "undefined") {

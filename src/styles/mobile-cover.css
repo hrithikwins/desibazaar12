@@ -1,0 +1,18 @@
+.outlined-container{
+    width: 60%;
+    padding: 20px;
+    position: absolute;
+    left: 20%;
+    background-color: rgb(228, 228, 228);
+    overflow: hidden;
+}
+.outlined-div {
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 65%;
+    display: inline;
+}
+.outlined-div:hover {
+    background-color: black;
+    color: white;
+}

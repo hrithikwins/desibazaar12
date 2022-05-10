@@ -31,11 +31,12 @@ import { useUI } from "@contexts/ui.context";
 import CategoryBlock from "@containers/category-block";
 
 export default function Home() {
-    const { openModal, setModalView } = useUI();
+    // const { openModal, setModalView } = useUI();
+    const { setModalView } = useUI();
     useEffect(() => {
         setModalView("NEWSLETTER_VIEW");
         setTimeout(() => {
-            openModal();
+            // openModal();
         }, 2000);
     }, []);
     return (
