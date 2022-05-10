@@ -1,16 +1,25 @@
+.sub_cat_main_container{
+    /* position: relative; */
+    left: 0px;
+    /* border: 2px solid red; */
+    /* width: 1000%; */
+}
+
 .outlined-container{
-    width: 60%;
+    /* border: 2px solid blueviolet; */
     padding: 20px;
     position: absolute;
-    left: 20%;
+    /* top: 100px; */
     background-color: rgb(228, 228, 228);
-    overflow: hidden;
+    /* overflow: visible; */
 }
 .outlined-div {
     border: 2px solid black;
-    padding: 10px 20px;
+    margin: 0px 20px;
+    padding: 5px 10px;
     font-size: 65%;
-    display: inline;
+    display: block;
+    width: 100px;
 }
 .outlined-div:hover {
     background-color: black;

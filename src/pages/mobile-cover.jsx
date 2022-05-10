@@ -20,7 +20,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // const Item = styled(Paper)(({ theme }) => ({
 //     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-
 //     ...theme.typography.body2,
 //     padding: theme.spacing(1),
 //     textAlign: "center",
@@ -31,9 +30,12 @@ const MobileCover = () => {
     const [mobilesList, setMobilesList] = useState([]);
     const [isImageHovered, setImageHovered] = useState(false);
     const [brands, setBrands] = useState([]);
-    const [count, setCount] = useState(0);
-    const models = [];
+    const [models, setModels] = useState([]);
+    const [model, setModel] = React.useState("");
+    const [brandIndex, setBrandIndex] = useState(0);
+    const [count, setCount] = useState(-1);
 
+    const [brand, setBrand] = React.useState("");
     useEffect(() => {
         // [
         //     {
@@ -55,15 +57,35 @@ const MobileCover = () => {
             setBrands(() => fetchedBrands);
         });
     }, []);
+
+    function setModelByBrand() {
+        let fetchedModels = [];
+        //search for the brand to be equal in models
+        for (var i = 0; i < mobilesList.length; i++) {
+            if (mobilesList[i].brandName === brand) {
+                fetchedModels = mobilesList[i].models;
+            }
+        }
+        setModels(() => fetchedModels);
+    }
     return (
         <>
             <Container>
                 <Box sx={{ height: 20 }} />
                 <Box display={"flex"} justifyContent="center">
-                    <SelectBrand brands={brands} />
+                    <SelectBrand
+                        brands={brands}
+                        brand={brand}
+                        setBrand={setBrand}
+                        onChange={setModelByBrand}
+                    />
                     <Box sx={{ width: 40 }} />
-
-                    <SelectModel models={brands} />
+                    {brand}
+                    <SelectModel
+                        models={models}
+                        model={model}
+                        setModel={() => setModel()}
+                    />
                     <Box sx={{ width: 40 }} />
                     <Box>
                         <PrimaryButton>Load</PrimaryButton>
@@ -115,11 +137,9 @@ export default MobileCover;
 
 MobileCover.Layout = Layout;
 
-const SelectBrand = ({ brands }) => {
-    const [age, setAge] = React.useState("");
-
+const SelectBrand = ({ brands, brand, setBrand, onChange }) => {
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setBrand(event.target.value);
     };
 
     return (
@@ -129,9 +149,12 @@ const SelectBrand = ({ brands }) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={age}
+                    value={brand}
                     label="My Brand"
-                    onChange={handleChange}
+                    onChange={(e) => {
+                        handleChange(e);
+                        onChange();
+                    }}
                 >
                     {brands.map((item, index) => (
                         <MenuItem value={item}>{item}</MenuItem>
@@ -142,21 +165,20 @@ const SelectBrand = ({ brands }) => {
     );
 };
 
-function SelectModel({ models }) {
-    const [age, setAge] = React.useState("");
-
+const SelectModel = ({ models, model, setModel }) => {
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setModel(event.target.value);
     };
 
     return (
         <Box sx={{ minWidth: 180 }}>
+            {JSON.stringify(models)}
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">My Model</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={age}
+                    value={model}
                     label="My Model"
                     onChange={(e) => handleChange(e)}
                 >
@@ -167,7 +189,7 @@ function SelectModel({ models }) {
             </FormControl>
         </Box>
     );
-}
+};
 
 export const getStaticProps = async ({ locale }) => {
     return {
@@ -211,24 +233,21 @@ const ShowBrandInfoCard = ({
                 role="tab"
                 id="headingOne"
                 style={{ height: 107 }}
+                onClick={() => setCount(count != index ? index : -1)}
             >
-                <div
-                    className="collapsed"
-                    role="button"
-                    data-toggle="collapse"
-                    data-parent="#accordion"
-                    href="#one"
-                    aria-expanded="false"
-                    aria-controls="one"
-                >
+                <div>
                     <Box
-                        className="gray-logo"
                         sx={{
                             filter: "grayscale(100%)",
+                            cursor: "pointer",
                             "&:hover": {
                                 filter: "grayscale(0%)",
                             },
                         }}
+                        display="flex"
+                        flexDirection={"column"}
+                        justifyContent="center"
+                        alignItems="center"
                     >
                         <Image
                             src={image}
@@ -236,29 +255,23 @@ const ShowBrandInfoCard = ({
                             width={80}
                             height={50}
                         />
+                        <h5>{name}</h5>
                     </Box>{" "}
-                    <h5>{name}</h5>
                 </div>
                 <AnimatePresence>
-                    {count == index && (
+                    {count == index && count != -1 && (
                         <motion.div
                             initial={{ height: 0 }}
-                            animate={{ height: 50 }}
-                            // exit={{ height: 0 }}
-                            transition={{
-                                ease: "easeIn",
-                                duration: 0.4,
-                                stiffness: 10,
-                            }}
+                            animate={{ height: "auto" }}
                             className="outlined-container"
                         >
                             <Grid container spacing={1}>
-                                <Grid container item spacing={3}>
+                                <Grid container spacing={3}>
                                     {models.map((data) => (
                                         <Grid item xs={2}>
-                                            <span class="outlined-div">
+                                            <div className="outlined-div">
                                                 {data}
-                                            </span>
+                                            </div>
                                         </Grid>
                                     ))}
                                 </Grid>

@@ -858,7 +858,7 @@ export const siteSettings = {
             },
             {
                 id: 3,
-                path: "/search",
+                path: "/mobile-cover",
                 label: "Mobile Covers",
             },
             {
