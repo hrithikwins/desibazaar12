@@ -14,6 +14,7 @@ module.exports = withPWA({
             "images.pexels.com",
             "www.pexels.com",
             "cdn.shopify.com",
+            "firebasestorage.googleapis.com",
         ],
     },
     i18n,

@@ -80,7 +80,9 @@ const MobileCover = () => {
                         onChange={setModelByBrand}
                     />
                     <Box sx={{ width: 40 }} />
-                    {brand}
+                    {/* {brand}
+                    {JSON.stringify(models)} */}
+
                     <SelectModel
                         models={models}
                         model={model}
@@ -172,7 +174,6 @@ const SelectModel = ({ models, model, setModel }) => {
 
     return (
         <Box sx={{ minWidth: 180 }}>
-            {JSON.stringify(models)}
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">My Model</InputLabel>
                 <Select
@@ -249,6 +250,7 @@ const ShowBrandInfoCard = ({
                         justifyContent="center"
                         alignItems="center"
                     >
+                        {image}
                         <Image
                             src={image}
                             alt="apple-logo_3"

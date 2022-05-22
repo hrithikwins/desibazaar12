@@ -15,74 +15,77 @@ import { useWindowSize } from "@utils/use-window-size";
 import Carousel from "@components/ui/carousel/carousel";
 import { SwiperSlide } from "swiper/react";
 import ProductMetaReview from "@components/product/product-meta-review";
+import { useProductByIdQuery } from "@framework/product/get-single-product-by-id";
 
 const productGalleryCarouselResponsive = {
-	"768": {
-		slidesPerView: 2,
-	},
-	"0": {
-		slidesPerView: 1,
-	},
+    "768": {
+        slidesPerView: 2,
+    },
+    "0": {
+        slidesPerView: 1,
+    },
 };
 
 const ProductSingleDetails: React.FC = () => {
-	const {
-		query: { slug },
-	} = useRouter();
-	const { width } = useWindowSize();
-	const { data, isLoading } = useProductQuery(slug as string);
-	const { addItemToCart } = useCart();
-	const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
-	const [quantity, setQuantity] = useState(1);
-	const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
-	const { price, basePrice, discount } = usePrice(
+    const {
+        query: { slug },
+    } = useRouter();
+    const { width } = useWindowSize();
+    const { data, isLoading } = useProductQuery(slug as string);
+    // const { data, isLoading } = useProductByIdQuery(slug as string);
+
+    const { addItemToCart } = useCart();
+    const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
+    const [quantity, setQuantity] = useState(1);
+    const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+    const { price, basePrice, discount } = usePrice(
         data && {
             amount: data.sale_price ? data.sale_price : data.price,
             baseAmount: data.price,
             currencyCode: "INR",
         }
     );
-	if (isLoading) return <p>Loading...</p>;
-	const variations = getVariations(data?.variations);
+    if (isLoading) return <p>Loading...</p>;
+    const variations = getVariations(data?.variations);
 
-	const isSelected = !isEmpty(variations)
-		? !isEmpty(attributes) &&
-		  Object.keys(variations).every((variation) =>
-				attributes.hasOwnProperty(variation)
-		  )
-		: true;
+    const isSelected = !isEmpty(variations)
+        ? !isEmpty(attributes) &&
+          Object.keys(variations).every((variation) =>
+              attributes.hasOwnProperty(variation)
+          )
+        : true;
 
-	function addToCart() {
-		if (!isSelected) return;
-		// to show btn feedback while product carting
-		setAddToCartLoader(true);
-		setTimeout(() => {
-			setAddToCartLoader(false);
-		}, 600);
+    function addToCart() {
+        if (!isSelected) return;
+        // to show btn feedback while product carting
+        setAddToCartLoader(true);
+        setTimeout(() => {
+            setAddToCartLoader(false);
+        }, 600);
 
-		const item = generateCartItem(data!, attributes);
-		addItemToCart(item, quantity);
-		toast("Added to the bag", {
-			type: "dark",
-			progressClassName: "fancy-progress-bar",
-			position: width > 768 ? "bottom-right" : "top-right",
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-		});
-		console.log(item, "item");
-	}
+        const item = generateCartItem(data!, attributes);
+        addItemToCart(item, quantity);
+        toast("Added to the bag", {
+            type: "dark",
+            progressClassName: "fancy-progress-bar",
+            position: width > 768 ? "bottom-right" : "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+        console.log(item, "item");
+    }
 
-	function handleAttribute(attribute: any) {
-		setAttributes((prev) => ({
-			...prev,
-			...attribute,
-		}));
-	}
+    function handleAttribute(attribute: any) {
+        setAttributes((prev) => ({
+            ...prev,
+            ...attribute,
+        }));
+    }
 
-	return (
+    return (
         <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start">
             {width < 1025 ? (
                 <Carousel
@@ -188,7 +191,7 @@ const ProductSingleDetails: React.FC = () => {
                             <span className="font-semibold text-heading inline-block pe-2">
                                 SKU:
                             </span>
-                            {data?.sku}
+                            {data?._id}
                         </li>
                         <li>
                             <span className="font-semibold text-heading inline-block pe-2">
@@ -198,7 +201,7 @@ const ProductSingleDetails: React.FC = () => {
                                 href="/"
                                 className="transition hover:underline hover:text-heading"
                             >
-                                {data?.category?.categoryName}
+                                {data?.category}
                             </Link>
                         </li>
                         {data?.tags && Array.isArray(data.tags) && (
@@ -221,10 +224,10 @@ const ProductSingleDetails: React.FC = () => {
                     </ul>
                 </div>
 
-                <ProductMetaReview data={data} />
+                {/* <ProductMetaReview data={data} /> */}
             </div>
         </div>
     );
-};
+};;;;;
 
 export default ProductSingleDetails;
