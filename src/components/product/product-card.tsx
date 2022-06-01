@@ -76,6 +76,7 @@ const ProductCard: FC<ProductProps> = ({
                     height={imgHeight}
                     loading={imgLoading}
                     quality={100}
+                    unoptimized
                     alt={product?.name || "Product Image"}
                     className={cn("bg-gray-300 object-cover rounded-s-md", {
                         "w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":

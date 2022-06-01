@@ -42,7 +42,8 @@ const Card: React.FC<Props> = ({
                         alt={item?.categoryName || t("text-card-thumbnail")}
                         width={imageSize}
                         height={imageSize}
-                        quality={100}
+                        // quality={100}
+                        unoptimized
                         className={`object-cover bg-gray-300 ${
                             variant === "rounded"
                                 ? "rounded-md"
