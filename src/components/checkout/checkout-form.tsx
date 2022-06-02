@@ -40,7 +40,7 @@ const CheckoutForm: React.FC = () => {
         console.info(input);
 
         axios
-            .post("https://desicover.herokuapp.com/create-new-order", input)
+            .post("https://desicover-express-mongo-prod-production.up.railway.app/create-new-order", input)
             .then(() => {
                 toast.success("created order successfully");
                 Router.push(ROUTES.ORDER);

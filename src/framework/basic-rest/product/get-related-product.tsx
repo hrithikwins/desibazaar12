@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 export const fetchRelatedProducts = async ({ queryKey }: any) => {
   const [_key, _params] = queryKey;
   const { data } = await http.post(
-    "https://desicover.herokuapp.com/get-all-products"
+    "https://desicover-express-mongo-prod-production.up.railway.app/get-all-products"
   );
   console.log(data);
   return data;

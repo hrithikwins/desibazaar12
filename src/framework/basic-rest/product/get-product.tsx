@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 
 export const fetchProduct = async (_slug: string) => {
     const { data } = await http.post(
-        "https://desicover.herokuapp.com/search-product-by-id",
+        "https://desicover-express-mongo-prod-production.up.railway.app/search-product-by-id",
         {
             // privateId: "625a61a59cadba0e48d981ee",
             privateId:

@@ -7,7 +7,7 @@ export const fetchCategories = async ({ queryKey }: any) => {
     const [_key, _params] = queryKey;
     const {
         data: { data },
-    } = await http.get("https://desicover.herokuapp.com/get-all-categories");
+    } = await http.get("https://desicover-express-mongo-prod-production.up.railway.app/get-all-categories");
     // } = await http.get("http://localhost:8000/get-all-categories");
     return { categories: { data: data as Category[] } };
 };;
