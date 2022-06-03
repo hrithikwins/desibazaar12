@@ -10,6 +10,7 @@ import {
     Select,
     Grid,
     Paper,
+    Typography,
 } from "@mui/material";
 import axios from "axios";
 import { useTranslation } from "next-i18next";
@@ -37,28 +38,21 @@ const MobileCover = () => {
 
     const [brand, setBrand] = React.useState("");
     useEffect(() => {
-        // [
-        //     {
-        //         _id: "62625ce86987988a163bd91d",
-        //         mobileBrandImage: "Apple",
-        //         brandName: "Apple",
-        //         models: ["iPhone SE", "iPhone 5", "iPhone 6", "iPhone 6s"],
-        //         createdAt: "2022-04-22T07:44:40.421Z",
-        //         updatedAt: "2022-04-22T07:44:40.421Z",
-        //         __v: 0,
-        //     },
-        // ];
-        axios.get("http://localhost:8000/get-all-mobiles").then((result) => {
-            let fetchedBrands = [];
-            setMobilesList(result.data);
-            for (var i = 0; i < result.data.length; i++) {
-                fetchedBrands.push(result.data[i].brandName);
-            }
-            setBrands(() => fetchedBrands);
-        });
+        axios
+            .get(
+                "https://desicover-express-mongo-prod-production.up.railway.app/get-all-mobiles"
+            )
+            .then((result) => {
+                let fetchedBrands = [];
+                setMobilesList(result.data);
+                for (var i = 0; i < result.data.length; i++) {
+                    fetchedBrands.push(result.data[i].brandName);
+                }
+                setBrands(() => fetchedBrands);
+            });
     }, []);
 
-    function setModelByBrand() {
+    const setModelByBrand = () => {
         let fetchedModels = [];
         //search for the brand to be equal in models
         for (var i = 0; i < mobilesList.length; i++) {
@@ -67,69 +61,103 @@ const MobileCover = () => {
             }
         }
         setModels(() => fetchedModels);
-    }
+    };
     return (
         <>
             <Container>
                 <Box sx={{ height: 20 }} />
-                <Box display={"flex"} justifyContent="center">
-                    <SelectBrand
-                        brands={brands}
-                        brand={brand}
-                        setBrand={setBrand}
-                        onChange={setModelByBrand}
-                    />
-                    <Box sx={{ width: 40 }} />
-                    {/* {brand}
-                    {JSON.stringify(models)} */}
 
-                    <SelectModel
-                        models={models}
-                        model={model}
-                        setModel={() => setModel()}
-                    />
-                    <Box sx={{ width: 40 }} />
-                    <Box>
-                        <PrimaryButton>Load</PrimaryButton>
-                    </Box>
-                </Box>
-                <Box sx={{ height: 80 }} />
-                <Box
-                    // sx={{ width: 800 }}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                >
-                    <div>
-                        <div
-                            className="category-main-container"
-                            role="tablist"
-                            aria-multiselectable="true"
+                <Box>
+                    {/* this is the selection box */}
+                    <Box
+                        display="flex"
+                        justifyContent={"center"}
+                        alignContent={"center"}
+                    >
+                        <Box
+                            p={[4, 8]}
+                            sx={{
+                                backgroundColor: "#eee",
+                                borderRadius: "10px",
+                                width: ["100%", "60%"],
+                            }}
                         >
-                            <Grid container spacing={2}>
-                                {mobilesList &&
-                                    mobilesList.length != 0 &&
-                                    mobilesList.map((data, index) => (
-                                        <Grid item xs={3}>
-                                            <ShowBrandInfoCard
-                                                name={data.brandName}
-                                                image={data.mobileBrandImage}
-                                                models={data.models}
-                                                count={count}
-                                                setCount={setCount}
-                                                index={index}
-                                                isImageHovered={isImageHovered}
-                                            />
-                                        </Grid>
-                                    ))}
-                            </Grid>
+                            <Box sx={{ height: 20 }} />
+                            <Box textAlign={"center"}>
+                                <Typography variant="h6">
+                                    QUICK SEARCH
+                                </Typography>
+                            </Box>
+                            <Box textAlign={"center"}>
+                                Make your very own case. Incredibly personal and
+                                completely unique!
+                            </Box>
+                            <Box sx={{ height: 30 }} />
+                            <Box
+                                display={"flex"}
+                                justifyContent="center"
+                                //turn this in column when the viewport is mobile
+                                flexDirection={["column", "row"]}
+                            >
+                                <SelectBrand
+                                    brands={brands}
+                                    brand={brand}
+                                    setBrand={setBrand}
+                                    onChange={setModelByBrand}
+                                />
+
+                                <Box sx={{ width: [0, 40], height: [10, 0] }} />
+
+                                <SelectModel
+                                    models={models}
+                                    model={model}
+                                    setModel={setModel}
+                                />
+                                <Box sx={{ width: [0, 40], height: [10, 0] }} />
+                                <Box>
+                                    <PrimaryButton>Search Covers</PrimaryButton>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                    {/* the selection box ends here */}
+                    <Box sx={{ height: 80 }} />
+                    <Box
+                        // sx={{ width: 800 }}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <div>
+                            <div
+                                className="category-main-container"
+                                role="tablist"
+                                aria-multiselectable="true"
+                            >
+                                <Grid container spacing={2}>
+                                    {mobilesList &&
+                                        mobilesList.length != 0 &&
+                                        mobilesList.map((data, index) => (
+                                            <Grid item xs={2.2}>
+                                                <ShowBrandInfoCard
+                                                    name={data.brandName}
+                                                    image={
+                                                        data.mobileBrandImage
+                                                    }
+                                                    models={data.models}
+                                                    count={count}
+                                                    setCount={setCount}
+                                                    index={index}
+                                                    isImageHovered={
+                                                        isImageHovered
+                                                    }
+                                                />
+                                            </Grid>
+                                        ))}
+                                </Grid>
+                            </div>
                         </div>
-                    </div>
-                    {/* <Box>{data.mobileBrandImage}</Box> */}
-                    {/* <Grid container spacing={2}>
-                        <Grid item xs={4}> */}
-                    {/* </Grid>
-                    </Grid> */}
+                    </Box>
                 </Box>
             </Container>
         </>
@@ -139,11 +167,15 @@ export default MobileCover;
 
 MobileCover.Layout = Layout;
 
-const SelectBrand = ({ brands, brand, setBrand, onChange }) => {
+export const SelectBrand = ({ brands, brand, setBrand, onChange }) => {
     const handleChange = (event) => {
         setBrand(event.target.value);
     };
 
+    useEffect(() => {
+        //this sets the models in the menu dropdown
+        onChange();
+    }, [brand]);
     return (
         <Box sx={{ minWidth: 220 }}>
             <FormControl fullWidth>
@@ -155,7 +187,6 @@ const SelectBrand = ({ brands, brand, setBrand, onChange }) => {
                     label="My Brand"
                     onChange={(e) => {
                         handleChange(e);
-                        onChange();
                     }}
                 >
                     {brands.map((item, index) => (
@@ -167,7 +198,7 @@ const SelectBrand = ({ brands, brand, setBrand, onChange }) => {
     );
 };
 
-const SelectModel = ({ models, model, setModel }) => {
+export const SelectModel = ({ models, model, setModel }) => {
     const handleChange = (event) => {
         setModel(event.target.value);
     };
@@ -192,20 +223,6 @@ const SelectModel = ({ models, model, setModel }) => {
     );
 };
 
-export const getStaticProps = async ({ locale }) => {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale, [
-                "common",
-                "forms",
-                "menu",
-                "privacy",
-                "footer",
-            ])),
-        },
-    };
-};
-
 /**
  *
  * @name {name} is the brandName
@@ -217,7 +234,7 @@ export const getStaticProps = async ({ locale }) => {
  * @returns
  */
 
-const ShowBrandInfoCard = ({
+export const ShowBrandInfoCard = ({
     name,
     image,
     models,
@@ -230,10 +247,10 @@ const ShowBrandInfoCard = ({
     return (
         <>
             <div
-                className="sub_cat_main_container"
+                // className="sub_cat_main_container"
                 role="tab"
                 id="headingOne"
-                style={{ height: 107 }}
+                style={{ height: 207 }}
                 onClick={() => setCount(count != index ? index : -1)}
             >
                 <div>
@@ -250,12 +267,12 @@ const ShowBrandInfoCard = ({
                         justifyContent="center"
                         alignItems="center"
                     >
-                        {image}
                         <Image
                             src={image}
-                            alt="apple-logo_3"
-                            width={80}
-                            height={50}
+                            alt={name}
+                            width={130}
+                            height={130}
+                            unoptimized
                         />
                         <h5>{name}</h5>
                     </Box>{" "}
@@ -265,15 +282,13 @@ const ShowBrandInfoCard = ({
                         <motion.div
                             initial={{ height: 0 }}
                             animate={{ height: "auto" }}
-                            className="outlined-container"
+                            className=""
                         >
                             <Grid container spacing={1}>
                                 <Grid container spacing={3}>
                                     {models.map((data) => (
                                         <Grid item xs={2}>
-                                            <div className="outlined-div">
-                                                {data}
-                                            </div>
+                                            {data}
                                         </Grid>
                                     ))}
                                 </Grid>
@@ -282,6 +297,27 @@ const ShowBrandInfoCard = ({
                     )}
                 </AnimatePresence>
             </div>
+            {/* this is the space which will be revealed and will show the models list */}
+            {/* first I'm checking the index and then will check  */}
+            {index % 5 == 0 && (
+                <>
+                    <Box sx={{ height: 20 }} />
+                </>
+            )}
         </>
     );
+};
+
+export const getStaticProps = async ({ locale }) => {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, [
+                "common",
+                "forms",
+                "menu",
+                "privacy",
+                "footer",
+            ])),
+        },
+    };
 };

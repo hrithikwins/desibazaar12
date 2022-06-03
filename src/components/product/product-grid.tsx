@@ -1,3 +1,4 @@
+// this product grid is shown in the search pages and deep inside other places
 import ProductCard from "@components/product/product-card";
 import PrimaryButton from "@components/ui/button";
 import type { FC } from "react";

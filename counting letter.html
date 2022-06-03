@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Counting Letters</title>
+    </head>
+    <body style="text-align: center">
+        <h1>Counting letters</h1>
+        <h4>Enter your sentence here</h4>
+        <textarea name="sentence" id="sentence" cols="30" rows="10"> </textarea>
+        <div>
+            <button onclick="{countSentence()}">Count</button>
+        </div>
+        <script>
+            function countSentence() {
+                // const sentence = "With great power comes great responsibility";
+                const sentence = document.getElementById("sentence").value;
+                const sentenceArray = sentence.split("");
+                const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+                const alphabet = alpha.map((a) => String.fromCharCode(a));
+                let distinctCountArrayOfAlphabets = [];
+                let finalProduct = 1;
+                alphabet.map((alp) => {
+                    const repeatedLetter = sentenceArray.filter((senChar) => {
+                        return senChar.toLowerCase() === alp.toLowerCase();
+                    });
+                    if (repeatedLetter.length !== 0) {
+                        finalProduct *= repeatedLetter.length;
+                    }
+                });
+                console.log(finalProduct);
+                alert(finalProduct);
+            }
+        </script>
+    </body>
+</html>

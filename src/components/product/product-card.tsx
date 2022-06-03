@@ -1,3 +1,4 @@
+//this product card is the smaller ones shown in the home and all other places where we have a grid llike layout
 import cn from "classnames";
 import Image from "next/image";
 import type { FC } from "react";
@@ -114,7 +115,7 @@ const ProductCard: FC<ProductProps> = ({
                     {product?.name}
                 </h2>
                 {product?.description && (
-                    <p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate">
+                    <p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px]  truncate">
                         {product?.description}
                     </p>
                 )}
