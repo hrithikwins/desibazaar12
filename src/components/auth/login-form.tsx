@@ -8,42 +8,66 @@ import Logo from "@components/ui/logo";
 // import { ImGoogle2, ImFacebook2 } from "react-icons/im";
 import { ImGoogle2 } from "react-icons/im";
 import { useTranslation } from "next-i18next";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth, provider } from "../../../firebase";
 
 const LoginForm: React.FC = () => {
-	const { t } = useTranslation();
-	const { setModalView, openModal, closeModal } = useUI();
-	const { mutate: login, isLoading } = useLoginMutation();
+    const { t } = useTranslation();
+    const { setModalView, openModal, closeModal } = useUI();
+    const { mutate: login, isLoading } = useLoginMutation();
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<LoginInputType>();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginInputType>();
 
-	function onSubmit({ email, password, remember_me }: LoginInputType) {
+    function onSubmit({ email, password, remember_me }: LoginInputType) {
+        login({
+            email,
+            password,
+            remember_me,
+        });
+        console.log(email, password, remember_me, "data");
+    }
+    function handelSocialLogin() {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential =
+                    GoogleAuthProvider.credentialFromResult(result);
+                const token = credential!.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                // ...
+                // this is the default useLoginMutation from the same app
 		login({
-			email,
-			password,
-			remember_me,
-		});
-		console.log(email, password, remember_me, "data");
-	}
-	function handelSocialLogin() {
-		login({
-			email: "demo@demo.com",
-			password: "demo",
-			remember_me: true,
-		});
-	}
-	function handleSignUp() {
-		setModalView("SIGN_UP_VIEW");
-		return openModal();
-	}
-	function handleForgetPassword() {
-		setModalView("FORGET_PASSWORD");
-		return openModal();
-	}
-	return (
+            email: auth.currentUser?.email!,
+            password: "demo",
+            remember_me: true,
+        });
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential =
+                    GoogleAuthProvider.credentialFromError(error);
+                // ...
+            });
+    }
+    function handleSignUp() {
+        setModalView("SIGN_UP_VIEW");
+        return openModal();
+    }
+    function handleForgetPassword() {
+        setModalView("FORGET_PASSWORD");
+        return openModal();
+    }
+    return (
         <div className="overflow-hidden bg-white mx-auto rounded-lg w-full sm:w-96 md:w-450px border border-gray-300 py-5 px-5 sm:px-8">
             <div className="text-center mb-6 pt-2.5">
                 <div onClick={closeModal}>

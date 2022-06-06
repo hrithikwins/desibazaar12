@@ -18,6 +18,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import router from "next/router";
 
 // const Item = styled(Paper)(({ theme }) => ({
 //     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -115,7 +116,16 @@ const MobileCover = () => {
                                 />
                                 <Box sx={{ width: [0, 40], height: [10, 0] }} />
                                 <Box>
-                                    <PrimaryButton>Search Covers</PrimaryButton>
+                                    <PrimaryButton
+                                        onClick={() => {
+                                            router.push(
+                                                "/mobile-cover/[model]",
+                                                `/mobile-cover/${model}`
+                                            );
+                                        }}
+                                    >
+                                        Search Covers
+                                    </PrimaryButton>
                                 </Box>
                             </Box>
                         </Box>
@@ -138,21 +148,80 @@ const MobileCover = () => {
                                     {mobilesList &&
                                         mobilesList.length != 0 &&
                                         mobilesList.map((data, index) => (
-                                            <Grid item xs={2.2}>
-                                                <ShowBrandInfoCard
-                                                    name={data.brandName}
-                                                    image={
-                                                        data.mobileBrandImage
-                                                    }
-                                                    models={data.models}
-                                                    count={count}
-                                                    setCount={setCount}
-                                                    index={index}
-                                                    isImageHovered={
-                                                        isImageHovered
-                                                    }
-                                                />
-                                            </Grid>
+                                            <>
+                                                <Grid item xs={2.2}>
+                                                    <ShowBrandInfoCard
+                                                        name={data.brandName}
+                                                        image={
+                                                            data.mobileBrandImage
+                                                        }
+                                                        models={data.models}
+                                                        count={count}
+                                                        setCount={setCount}
+                                                        index={index}
+                                                        isImageHovered={
+                                                            isImageHovered
+                                                        }
+                                                    />
+                                                </Grid>
+                                                {(index + 1) % 5 == 0 && (
+                                                    <Grid
+                                                        item
+                                                        xs={12}
+                                                        width={80}
+                                                    >
+                                                        <AnimatePresence>
+                                                            {count != -1 && (
+                                                                <motion.div
+                                                                    initial={{
+                                                                        height: 0,
+                                                                        overflow:
+                                                                            "hidden",
+                                                                    }}
+                                                                    animate={{
+                                                                        height: "auto",
+                                                                    }}
+                                                                    exit={{
+                                                                        height: 0,
+                                                                    }}
+                                                                    transition={{
+                                                                        duration: 1.4,
+                                                                    }}
+                                                                    className=""
+                                                                >
+                                                                    <Grid
+                                                                        container
+                                                                        spacing={
+                                                                            3
+                                                                        }
+                                                                    >
+                                                                        {mobilesList[
+                                                                            count
+                                                                        ].models.map(
+                                                                            (
+                                                                                data
+                                                                            ) => (
+                                                                                <Grid
+                                                                                    item
+                                                                                    xs={
+                                                                                        2
+                                                                                    }
+                                                                                >
+                                                                                    <p className="outlined-div">
+                                                                                        {
+                                                                                            data
+                                                                                        }
+                                                                                    </p>
+                                                                                </Grid>
+                                                                            )
+                                                                        )}
+                                                                    </Grid>
+                                                                </motion.div>
+                                                            )}
+                                                        </AnimatePresence>
+                                                    </Grid>
+                                                )}
+                                            </>
                                         ))}
                                 </Grid>
                             </div>
@@ -270,40 +339,22 @@ export const ShowBrandInfoCard = ({
                         <Image
                             src={image}
                             alt={name}
-                            width={130}
-                            height={130}
+                            width={120}
+                            height={120}
                             unoptimized
                         />
                         <h5>{name}</h5>
                     </Box>{" "}
                 </div>
-                <AnimatePresence>
-                    {count == index && count != -1 && (
-                        <motion.div
-                            initial={{ height: 0 }}
-                            animate={{ height: "auto" }}
-                            className=""
-                        >
-                            <Grid container spacing={1}>
-                                <Grid container spacing={3}>
-                                    {models.map((data) => (
-                                        <Grid item xs={2}>
-                                            {data}
-                                        </Grid>
-                                    ))}
-                                </Grid>
-                            </Grid>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
             </div>
+
             {/* this is the space which will be revealed and will show the models list */}
             {/* first I'm checking the index and then will check  */}
-            {index % 5 == 0 && (
+            {/* {index % 5 == 0 && (
                 <>
-                    <Box sx={{ height: 20 }} />
+
                 </>
-            )}
+            )} */}
         </>
     );
 };
