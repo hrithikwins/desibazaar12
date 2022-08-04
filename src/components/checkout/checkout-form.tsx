@@ -40,7 +40,10 @@ const CheckoutForm: React.FC = () => {
         console.info(input);
 
         axios
-            .post("https://desicover-express-mongo-prod-production.up.railway.app/create-new-order", input)
+            .post(
+                "https://desicover-express-mongo-prod-production.up.railway.app/create-new-order",
+                input
+            )
             .then(() => {
                 toast.success("created order successfully");
                 Router.push(ROUTES.ORDER);
@@ -130,8 +133,10 @@ const CheckoutForm: React.FC = () => {
                             className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
                         />
                     </div>
-                    <div className="relative flex items-center ">
+                    <div className="relative flex flex-col items-start">
                         <CheckBox labelKey="forms:label-save-information" />
+                        <div className="py-2"></div>
+                        <CheckBox labelKey="forms:label-agree-delivery-terms" />
                     </div>
                     <TextArea
                         labelKey="forms:label-order-notes"

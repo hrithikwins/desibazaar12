@@ -41,6 +41,7 @@ const LoginForm: React.FC = () => {
                 const user = result.user;
                 // ...
                 // this is the default useLoginMutation from the same app
+                // you dont have to add this ..just alert the values in testing
 		login({
             email: auth.currentUser?.email!,
             password: "demo",
