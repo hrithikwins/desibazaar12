@@ -48,6 +48,7 @@
         "react-tabs": "^3.2.2",
         "react-toastify": "^7.0.4",
         "react-use": "^17.2.4",
+        "react-uuid": "^1.0.2",
         "swiper": "^6.8.1"
     },
     "devDependencies": {

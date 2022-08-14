@@ -32,7 +32,7 @@ export default function Order() {
           },
           prefill: {
               name: "Desicovers",
-              email: "email@example.com",
+              email: "desicover.1@gmail.com",
               contact: "9999999999",
           },
           notes: {

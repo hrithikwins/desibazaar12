@@ -31,7 +31,7 @@ const social = [
 	},
 	{
 		id: 2,
-		link: "https://www.youtube.com/channel/UCjld1tyVHRNy_pe3ROLiLhw",
+		link: "https://www.youtube.com/channel/",
 		icon: <IoLogoYoutube />,
 		className: "youtube",
 		title: "text-youtube",

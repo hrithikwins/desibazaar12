@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 export const fetchFlashSaleProducts = async ({ queryKey }: any) => {
 	const [_key, _params] = queryKey;
 	const { data } = await http.get(
-        "https://desicover-express-mongo-prod-production.up.railway.app/get-product-by-category?category=Mobile"
+        "https://desicover-node.herokuapp.com/get-product-by-category?category=Mobile&limit=9"
     );
 	return data;
 };

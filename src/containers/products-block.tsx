@@ -42,8 +42,6 @@ const ProductsBlock: React.FC<ProductsProps> = ({
                             <ProductCard
                                 key={`product--key${product._id}`}
                                 product={product}
-                                imgWidth={340}
-                                imgHeight={440}
                                 variant="grid"
                             />
                         ))

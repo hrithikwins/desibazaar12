@@ -38,8 +38,8 @@ const SellWithProgress: React.FC<Props> = ({
 	error,
 	className = "",
 	productVariant = "list",
-	imgWidth = 210,
-	imgHeight = 210,
+	imgWidth = 280,
+	imgHeight = 500,
 	carouselBreakpoint,
 }) => {
 	return (

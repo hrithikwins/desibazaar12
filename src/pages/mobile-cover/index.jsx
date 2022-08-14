@@ -41,7 +41,7 @@ const MobileCover = () => {
     useEffect(() => {
         axios
             .get(
-                "https://desicover-express-mongo-prod-production.up.railway.app/get-all-mobiles"
+                "https://desicover-node.herokuapp.com/get-all-mobiles"
             )
             .then((result) => {
                 let fetchedBrands = [];
